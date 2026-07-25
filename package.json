@@ -1,0 +1,25 @@
+{
+  "name": "digital-board-game-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.26.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "vite --host 0.0.0.0 --port 4173 --strictPort",
+    "validate": "node scripts/validate-manifests.mjs",
+    "test": "vitest run",
+    "build": "pnpm validate && tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0 --port 4173 --strictPort",
+    "local:start": "pwsh -NoProfile -File scripts/local.ps1 -Action start",
+    "local:status": "pwsh -NoProfile -File scripts/local.ps1 -Action status",
+    "local:stop": "pwsh -NoProfile -File scripts/local.ps1 -Action stop"
+  },
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "vite": "^8.1.5",
+    "vitest": "^4.1.10"
+  }
+}

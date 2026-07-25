@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "title": "Design System: 数字桌游馆",
+  "extensions": {
+    "colorMeta": {
+      "midnight-ink": {
+        "role": "neutral",
+        "displayName": "Midnight Ink",
+        "canonical": "oklch(18% 0.009 95)",
+        "tonalRamp": ["oklch(15% 0.009 95)", "oklch(25% 0.009 95)", "oklch(35% 0.009 95)", "oklch(45% 0.009 95)", "oklch(58% 0.009 95)", "oklch(70% 0.009 95)", "oklch(83% 0.009 95)", "oklch(95% 0.009 95)"]
+      },
+      "museum-bone": {
+        "role": "neutral",
+        "displayName": "Museum Bone",
+        "canonical": "oklch(92% 0.02 85)",
+        "tonalRamp": ["oklch(15% 0.02 85)", "oklch(27% 0.02 85)", "oklch(39% 0.02 85)", "oklch(51% 0.02 85)", "oklch(63% 0.02 85)", "oklch(75% 0.02 85)", "oklch(86% 0.02 85)", "oklch(95% 0.02 85)"]
+      },
+      "muted-cinnabar": {
+        "role": "primary",
+        "displayName": "Muted Cinnabar",
+        "canonical": "oklch(58% 0.13 35)",
+        "tonalRamp": ["oklch(15% 0.06 35)", "oklch(27% 0.09 35)", "oklch(39% 0.11 35)", "oklch(51% 0.13 35)", "oklch(63% 0.13 35)", "oklch(75% 0.11 35)", "oklch(86% 0.07 35)", "oklch(95% 0.03 35)"]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Collection Display",
+        "purpose": "门户品牌、精选标题和章节题签。"
+      },
+      "body": {
+        "displayName": "Interface Body",
+        "purpose": "动作、事实、说明与筛选。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "ambient-low",
+        "value": "0 18px 60px rgb(4 5 4 / 0.30)",
+        "purpose": "精选封面和浮起的可点击目录。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "150–250ms 状态反馈。"
+      }
+    ],
+    "breakpoints": [
+      { "name": "compact", "value": "680px" },
+      { "name": "medium", "value": "900px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Launch Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "当前环境中启动一款可玩游戏。",
+      "html": "<a class=\"ds-launch\" href=\"#\">进入游戏</a>",
+      "css": ".ds-launch { display:inline-flex; min-height:44px; align-items:center; padding:11px 17px; border:1px solid #b85842; border-radius:6px; background:#b85842; color:#f1eadc; font:700 14px system-ui; text-decoration:none; transition:background 180ms cubic-bezier(.16,1,.3,1), transform 180ms cubic-bezier(.16,1,.3,1); } .ds-launch:hover { background:#d77960; color:#111311; transform:translateY(-2px); } .ds-launch:focus-visible { outline:2px solid #d77960; outline-offset:3px; }"
+    },
+    {
+      "name": "Launch Mode Switch",
+      "kind": "custom",
+      "description": "在公网和本地游戏地址之间切换。",
+      "html": "<div class=\"ds-mode\"><button aria-pressed=\"false\">公网</button><button class=\"is-active\" aria-pressed=\"true\">本地</button></div>",
+      "css": ".ds-mode { display:inline-grid; grid-template-columns:1fr 1fr; padding:3px; border:1px solid #3b3c34; border-radius:8px; background:#1a1c19; } .ds-mode button { min-width:64px; min-height:38px; border:0; border-radius:5px; background:transparent; color:#b7afa0; font:700 14px system-ui; } .ds-mode button.is-active { background:#242620; color:#d77960; } .ds-mode button:focus-visible { outline:2px solid #d77960; outline-offset:2px; }"
+    },
+    {
+      "name": "Filter Chip",
+      "kind": "chip",
+      "refersTo": "filter-chip",
+      "description": "按单人、对战、电脑或联机筛选目录。",
+      "html": "<button class=\"ds-chip is-active\" aria-pressed=\"true\">单人</button>",
+      "css": ".ds-chip { min-height:42px; padding:0 14px; border:1px solid #3b3c34; border-radius:999px; background:transparent; color:#b7afa0; font:700 13px system-ui; } .ds-chip.is-active { border-color:#242620; background:#242620; color:#d77960; } .ds-chip:focus-visible { outline:2px solid #d77960; outline-offset:3px; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "description": "搜索标题、玩法和标签。",
+      "html": "<label class=\"ds-search\"><span>搜索</span><input placeholder=\"搜索标题、玩法或标签\"></label>",
+      "css": ".ds-search { display:flex; min-height:46px; align-items:center; gap:10px; padding:0 13px; border:1px solid #3b3c34; border-radius:6px; background:#1a1c19; color:#77756d; font:400 14px system-ui; } .ds-search input { min-width:220px; border:0; outline:0; background:transparent; color:#f1eadc; font:inherit; } .ds-search:focus-within { border-color:#d77960; outline:2px solid #d77960; outline-offset:3px; }"
+    },
+    {
+      "name": "Catalog Row",
+      "kind": "card",
+      "description": "以横向目录而不是同尺寸卡片网格展示游戏。",
+      "html": "<article class=\"ds-row\"><span>01</span><div><small>可游玩 · v1.0</small><h3>乌托邦引擎：怪兽猎人</h3><p>十四天的单人骰子冒险。</p></div></article>",
+      "css": ".ds-row { display:grid; grid-template-columns:40px 1fr; gap:20px; min-width:520px; padding:28px 4px; border-top:1px solid #3b3c34; border-bottom:1px solid #3b3c34; background:#111311; color:#f1eadc; transition:background 180ms cubic-bezier(.16,1,.3,1); } .ds-row:hover { background:#1a1c19; } .ds-row>span, .ds-row small { color:#77756d; font:italic 12px Georgia,serif; } .ds-row h3 { margin:10px 0 0; font:600 28px Georgia,serif; } .ds-row p { margin:8px 0 0; color:#b7afa0; font:14px/1.6 system-ui; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "夜间典藏室",
+    "overview": "界面像一间在暖灯下整理好的私人典藏室：深色外壳退到背景，封面成为进入不同世界的门。它是可信赖的产品入口，不是营销落地页；层级清楚、状态诚实、动作直接。",
+    "keyCharacteristics": [
+      "暖黑中性色构成稳定外壳。",
+      "朱红只用于主要动作、选择和焦点。",
+      "一张精选大图与紧凑目录形成节奏。",
+      "动效只说明交互状态，持续 150–250ms。"
+    ],
+    "rules": [
+      { "name": "The One Seal Rule", "body": "朱红在单屏中的面积不得超过 10%，稀缺性就是它的辨识度。", "section": "colors" },
+      { "name": "The Two Voices Rule", "body": "衬线负责世界与标题，无衬线负责动作与事实，永不互换。", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "表面静止时保持平坦，阴影只能回应层级或交互。", "section": "elevation" }
+    ],
+    "dos": [
+      "Do 让公网、本地、测试中、维护中和未部署状态一眼可辨。",
+      "Do 使用完整边框、色调分层和可见焦点表达交互。",
+      "Do 保持按钮和输入控件至少 44px 高。",
+      "Do 让封面承担世界观，门户外壳保持安静。"
+    ],
+    "donts": [
+      "Don't 做成霓虹电玩大厅、手游运营中心或通用 SaaS 仪表盘。",
+      "Don't 使用装饰性玻璃拟态、渐变文字或彩色粗侧边条。",
+      "Don't 使用无意义的大数字指标和完全相同的卡片网格。",
+      "Don't 用重动画、复杂弹窗或世界观装饰妨碍启动游戏。",
+      "Don't 让任何关键状态只依赖颜色或悬停表达。"
+    ]
+  }
+}

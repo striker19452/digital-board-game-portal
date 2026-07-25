@@ -1,0 +1,24 @@
+{
+  "id": "lotr-confrontation",
+  "title": "魔戒对决",
+  "originalTitle": "The Lord of the Rings: The Confrontation",
+  "summary": "在隐藏信息、角色能力与特殊路线之间进行阵营对抗，支持本地双人、电脑对战和房间联机。",
+  "cover": "covers/lotr-confrontation.webp",
+  "version": "v0.1.0",
+  "status": "beta",
+  "modes": ["local-multiplayer", "ai", "online"],
+  "players": { "min": 1, "max": 2 },
+  "tags": ["对战", "隐藏信息", "电脑", "联机"],
+  "launch": {
+    "local": {
+      "runtime": "node",
+      "directory": "../魔戒对决",
+      "port": 4176,
+      "path": "/"
+    }
+  },
+  "notice": {
+    "public": "Render 公网地址尚未配置，请先使用本地模式。",
+    "local": "联机房间保存在服务内存中，停止本地服务后房间会消失。"
+  }
+}

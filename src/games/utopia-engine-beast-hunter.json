@@ -1,0 +1,25 @@
+{
+  "id": "utopia-engine-beast-hunter",
+  "title": "乌托邦引擎：怪兽猎人",
+  "originalTitle": "Utopia Engine: Beast Hunter",
+  "summary": "在十四天内探索三片险地、建造防御塔并猎杀恐怖巨兽。一个忠实还原纸笔流程的单人骰子冒险。",
+  "cover": "covers/utopia-engine-beast-hunter.webp",
+  "version": "v1.0.0",
+  "status": "available",
+  "modes": ["solo"],
+  "players": { "min": 1, "max": 1 },
+  "tags": ["骰子", "冒险", "资源规划", "单人"],
+  "featured": true,
+  "launch": {
+    "public": "https://striker19452.github.io/utopia-engine-beast-hunter/",
+    "local": {
+      "runtime": "static",
+      "directory": "../乌托邦引擎-怪物猎人",
+      "port": 4184,
+      "path": "/"
+    }
+  },
+  "notice": {
+    "local": "游戏进度保存在当前本地地址的浏览器存储中。"
+  }
+}
