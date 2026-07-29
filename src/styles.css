@@ -799,6 +799,51 @@ footer {
   font-size: 0.76rem;
 }
 
+.footer-copy {
+  display: grid;
+  gap: 8px;
+}
+
+.footer-copy > p {
+  margin: 0;
+}
+
+.visit-counter {
+  min-height: 1.4em;
+  color: var(--color-faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-stats {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35em;
+}
+
+.counter-stats strong {
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.counter-fallback,
+.counter-local {
+  display: none;
+}
+
+.visit-counter:is([data-state="unavailable"], [data-state="local"])
+  .counter-stats {
+  display: none;
+}
+
+.visit-counter[data-state="unavailable"] .counter-fallback {
+  display: inline;
+}
+
+.visit-counter[data-state="local"] .counter-local {
+  display: inline;
+}
+
 footer a {
   display: inline-flex;
   min-height: 44px;

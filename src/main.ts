@@ -3,10 +3,12 @@ import { filterGames, playerLabel } from "./catalog";
 import {
   defaultLocalHost,
   detectDefaultLaunchMode,
+  isLocalEnvironment,
   normalizeLocalHost,
   resolveLaunchUrl,
 } from "./launch";
 import { games } from "./registry";
+import { initVercount } from "./vercount";
 import type {
   GameManifest,
   GameStatus,
@@ -307,7 +309,7 @@ app.innerHTML = `
       <p class="eyebrow">STRIKER1945 的数字收藏</p>
       <h1 id="page-title">今晚，<br />玩哪一局？</h1>
       <div class="intro-support">
-        <p>三个独立世界，一个可靠入口。选择运行环境，带上你的策略，然后开始。</p>
+        <p>这里是桌游的世界。</p>
         <div class="collection-note">
           <span class="collection-rule" aria-hidden="true"></span>
           <span><strong>${games.length} 款馆藏</strong><small>清单驱动，持续增加</small></span>
@@ -352,7 +354,23 @@ app.innerHTML = `
   </main>
 
   <footer>
-    <p>每款游戏保持独立，存档与房间不会被门户读取。</p>
+    <div class="footer-copy">
+      <p>每款游戏保持独立，存档与房间不会被门户读取。</p>
+      <p
+        class="visit-counter"
+        data-vercount
+        data-state="loading"
+        role="status"
+        aria-live="polite"
+        aria-label="正在读取访问统计"
+      >
+        <span class="counter-stats">
+          本页累计访问 <strong id="vercount_value_page_pv">…</strong> 次
+        </span>
+        <span class="counter-fallback">访问统计暂不可用</span>
+        <span class="counter-local">本地浏览不计入访问统计</span>
+      </p>
+    </div>
     <a href="https://github.com/striker19452" target="_blank" rel="noopener noreferrer">
       GitHub
       <svg aria-hidden="true" viewBox="0 0 20 20">
@@ -468,3 +486,7 @@ document.querySelector<HTMLFormElement>("#host-form")?.addEventListener(
 );
 
 renderDynamicContent();
+window.setTimeout(
+  () => initVercount(isLocalEnvironment(window.location.hostname)),
+  0,
+);
