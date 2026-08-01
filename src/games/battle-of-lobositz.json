@@ -1,0 +1,24 @@
+{
+  "id": "battle-of-lobositz",
+  "title": "罗布西茨会战",
+  "originalTitle": "The Battle of Lobositz",
+  "summary": "在六边格战场上指挥普鲁士与奥地利军队，运用地形、视线、控制区和联合攻击争夺罗布西茨。",
+  "cover": "covers/battle-of-lobositz.webp",
+  "version": "v0.1.0",
+  "status": "beta",
+  "modes": ["local-multiplayer"],
+  "players": { "min": 2, "max": 2 },
+  "tags": ["兵棋", "十八世纪", "六边格", "双人"],
+  "launch": {
+    "public": "https://striker19452.github.io/battle-of-lobositz/",
+    "local": {
+      "runtime": "vite",
+      "directory": "../罗布西茨战役",
+      "port": 4177,
+      "path": "/"
+    }
+  },
+  "notice": {
+    "local": "战局存档保存在当前本地地址的浏览器存储中。"
+  }
+}
