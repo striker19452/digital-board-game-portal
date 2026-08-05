@@ -4,7 +4,7 @@
   "originalTitle": "The Battle of Lobositz",
   "summary": "在六边格战场上指挥普鲁士与奥地利军队，运用地形、视线、控制区和联合攻击争夺罗布西茨。",
   "cover": "covers/battle-of-lobositz.webp",
-  "version": "v0.1.0",
+  "version": "v1.0.0",
   "status": "beta",
   "modes": ["local-multiplayer"],
   "players": { "min": 2, "max": 2 },

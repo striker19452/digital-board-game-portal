@@ -179,4 +179,4 @@ GitHub Pages 工作流会依次安装依赖、运行测试、验证清单并构�
 ## 公网地址
 
 - 怪兽猎人、镇夜录和罗布西茨会战已在清单中配置 GitHub Pages 地址。
-- 魔戒对决尚未配置可确认的 Render 地址，因此公网模式显示“公网待部署”。完成 Render 部署后，只需把 HTTPS 地址写入 `src/games/lotr-confrontation.json` 的 `launch.public`。
+- 魔戒对决已在清单中配置 Render 公网地址：`https://lotrc.onrender.com/`。

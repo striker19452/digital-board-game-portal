@@ -4,7 +4,7 @@
   "originalTitle": "Utopia Engine: Beast Hunter",
   "summary": "在十四天内探索三片险地、建造防御塔并猎杀恐怖巨兽。一个忠实还原纸笔流程的单人骰子冒险。",
   "cover": "covers/utopia-engine-beast-hunter.webp",
-  "version": "v1.0.2",
+  "version": "v1.0.3",
   "status": "available",
   "modes": ["solo"],
   "players": { "min": 1, "max": 1 },
