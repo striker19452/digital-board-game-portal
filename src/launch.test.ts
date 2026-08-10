@@ -14,6 +14,10 @@ const game: GameManifest = {
   summary: "测试",
   cover: "covers/test.webp",
   version: "v1",
+  versionSource: {
+    url: "https://example.com/package.json",
+    format: "package-json",
+  },
   status: "available",
   modes: ["solo"],
   players: { min: 1, max: 1 },

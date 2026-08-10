@@ -4,7 +4,10 @@
   "originalTitle": "Ghost Stories Digital",
   "summary": "统筹四名道士守住九宫村庄，在侵占、求助与驱鬼之间作出选择，迎战不断逼近的吴峰。",
   "cover": "covers/ghost-stories.webp",
-  "version": "v1.1.0",
+  "versionSource": {
+    "url": "https://raw.githubusercontent.com/striker19452/ghost-stories-digital/main/package.json",
+    "format": "package-json"
+  },
   "status": "available",
   "modes": ["solo"],
   "players": { "min": 1, "max": 1 },

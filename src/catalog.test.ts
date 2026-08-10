@@ -10,6 +10,10 @@ const games: GameManifest[] = [
     summary: "掷骰探索",
     cover: "covers/solo.webp",
     version: "v1",
+    versionSource: {
+      url: "https://example.com/solo/package.json",
+      format: "package-json",
+    },
     status: "available",
     modes: ["solo"],
     players: { min: 1, max: 1 },
@@ -22,6 +26,10 @@ const games: GameManifest[] = [
     summary: "隐藏信息",
     cover: "covers/duel.webp",
     version: "v1",
+    versionSource: {
+      url: "https://example.com/duel/package.json",
+      format: "package-json",
+    },
     status: "beta",
     modes: ["local-multiplayer", "online"],
     players: { min: 1, max: 2 },

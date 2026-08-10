@@ -9,6 +9,7 @@ import {
 } from "./launch";
 import { games } from "./registry";
 import { initVercount } from "./vercount";
+import { fetchGameVersion } from "./versions";
 import type {
   GameManifest,
   GameStatus,
@@ -19,6 +20,7 @@ import type {
 
 const MODE_STORAGE_KEY = "board-game-portal-launch-mode";
 const HOST_STORAGE_KEY = "board-game-portal-local-host";
+const VERSION_STORAGE_KEY = "board-game-portal-game-versions";
 
 const statusLabels: Record<GameStatus, string> = {
   available: "可游玩",
@@ -58,6 +60,20 @@ function writeStorage(key: string, value: string): void {
   }
 }
 
+function readVersionCache(): Record<string, string> {
+  try {
+    const value: unknown = JSON.parse(readStorage(VERSION_STORAGE_KEY) ?? "{}");
+    if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+    return Object.fromEntries(
+      Object.entries(value).filter(
+        (entry): entry is [string, string] => typeof entry[1] === "string",
+      ),
+    );
+  } catch {
+    return {};
+  }
+}
+
 function escapeHtml(value: string): string {
   return value
     .replaceAll("&", "&amp;")
@@ -86,11 +102,13 @@ const state: {
   localHost: string;
   query: string;
   filter: ModeFilter;
+  versions: Record<string, string | null | undefined>;
 } = {
   mode: readInitialMode(),
   localHost: readInitialHost(),
   query: "",
   filter: "all",
+  versions: readVersionCache(),
 };
 
 function gameModeText(game: GameManifest): string {
@@ -152,9 +170,13 @@ function launchAction(game: GameManifest, className = ""): string {
 }
 
 function metadata(game: GameManifest): string {
+  const resolvedVersion = state.versions[game.id];
+  const versionLabel =
+    resolvedVersion ??
+    (resolvedVersion === null ? "版本未知" : "版本读取中…");
   return `
     <span class="status status-${escapeHtml(game.status)}">${escapeHtml(statusLabels[game.status])}</span>
-    <span>${escapeHtml(game.version)}</span>
+    <span>${escapeHtml(versionLabel)}</span>
     <span>${escapeHtml(playerLabel(game))}</span>
     <span>${escapeHtml(gameModeText(game))}</span>
   `;
@@ -392,9 +414,14 @@ const hostError = requiredElement<HTMLParagraphElement>("#host-error");
 hostInput.value = state.localHost;
 
 function renderDynamicContent(): void {
-  const visibleGames = filterGames(games, state.query, state.filter);
+  const resolvedGames = games.map((game) => ({
+    ...game,
+    version: state.versions[game.id] ?? undefined,
+  }));
+  const visibleGames = filterGames(resolvedGames, state.query, state.filter);
   const showFeatured = state.query.trim() === "" && state.filter === "all";
-  const featured = games.find((game) => game.featured) ?? games[0];
+  const featured =
+    resolvedGames.find((game) => game.featured) ?? resolvedGames[0];
 
   featuredContent.innerHTML =
     showFeatured && featured ? renderFeatured(featured) : "";
@@ -423,6 +450,27 @@ function renderDynamicContent(): void {
       button.setAttribute("aria-pressed", String(active));
     },
   );
+}
+
+async function refreshGameVersions(): Promise<void> {
+  await Promise.all(
+    games.map(async (game) => {
+      try {
+        state.versions[game.id] = await fetchGameVersion(game.versionSource);
+      } catch (error) {
+        if (!state.versions[game.id]) state.versions[game.id] = null;
+        console.warn(`无法读取 ${game.title} 的版本号。`, error);
+      }
+    }),
+  );
+
+  const successfulVersions = Object.fromEntries(
+    Object.entries(state.versions).filter(
+      (entry): entry is [string, string] => typeof entry[1] === "string",
+    ),
+  );
+  writeStorage(VERSION_STORAGE_KEY, JSON.stringify(successfulVersions));
+  renderDynamicContent();
 }
 
 app.addEventListener("click", (event) => {
@@ -487,6 +535,9 @@ document.querySelector<HTMLFormElement>("#host-form")?.addEventListener(
 
 renderDynamicContent();
 window.setTimeout(
-  () => initVercount(isLocalEnvironment(window.location.hostname)),
+  () => {
+    void refreshGameVersions();
+    initVercount(isLocalEnvironment(window.location.hostname));
+  },
   0,
 );

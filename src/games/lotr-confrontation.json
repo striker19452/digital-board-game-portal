@@ -4,7 +4,10 @@
   "originalTitle": "The Lord of the Rings: The Confrontation",
   "summary": "在隐藏信息、角色能力与特殊路线之间进行阵营对抗，支持本地双人、电脑对战和房间联机。",
   "cover": "covers/lotr-confrontation.webp",
-  "version": "v1.0.0",
+  "versionSource": {
+    "url": "https://raw.githubusercontent.com/striker19452/----/master/package.json",
+    "format": "package-json"
+  },
   "status": "beta",
   "modes": ["local-multiplayer", "ai", "online"],
   "players": { "min": 1, "max": 2 },

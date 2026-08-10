@@ -55,7 +55,10 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
   "title": "我的新游戏",
   "summary": "显示在门户目录中的游戏简介。",
   "cover": "covers/my-new-game.webp",
-  "version": "v1.0.0",
+  "versionSource": {
+    "url": "https://raw.githubusercontent.com/example/my-new-game/main/package.json",
+    "format": "package-json"
+  },
   "status": "available",
   "modes": ["solo"],
   "players": { "min": 1, "max": 1 },
@@ -81,7 +84,7 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
 | `originalTitle` | 可选的原文名称。 |
 | `summary` | 门户中显示的简介。 |
 | `cover` | 相对于门户 `public/` 目录的封面路径。 |
-| `version` | 门户中显示的游戏版本。 |
+| `versionSource` | 游戏版本的只读来源。门户会在浏览器中获取并缓存，不再手工填写版本号。 |
 | `status` | `available` 可游玩、`beta` 测试中、`coming-soon` 即将推出、`maintenance` 维护中。 |
 | `modes` | 游玩方式：`solo`、`local-multiplayer`、`ai` 或 `online`。 |
 | `players` | 支持的最少和最多玩家数。 |
@@ -90,6 +93,15 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
 | `launch.public` | 公网模式下打开的 HTTPS 地址；尚未部署时可以暂不填写。 |
 | `launch.local` | 本地模式下的启动与访问配置。 |
 | `notice.public/local` | 可选。分别在公网或本地模式中显示的提示。 |
+
+`versionSource.format` 支持以下两种格式：
+
+| 格式 | 用途 |
+|---|---|
+| `package-json` | 从 JSON 顶层的 `version` 字段读取版本，适用于以 `package.json` 管理版本的游戏。 |
+| `game-version-script` | 从 `GAME_VERSION = Object.freeze({ number: "…" })` 读取版本，适用于当前怪兽猎人的发布信息脚本。 |
+
+版本来源必须使用 HTTPS，并允许浏览器跨域读取。门户首次读取时显示“版本读取中…”，成功后缓存结果；网络暂时不可用时会沿用上次成功读取的版本，没有缓存时显示“版本未知”。
 
 `launch.local` 中各字段的意义：
 

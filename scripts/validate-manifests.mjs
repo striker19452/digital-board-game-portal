@@ -16,6 +16,10 @@ const statuses = new Set([
 ]);
 const modes = new Set(["solo", "local-multiplayer", "ai", "online"]);
 const runtimes = new Set(["static", "vite", "node"]);
+const versionSourceFormats = new Set([
+  "package-json",
+  "game-version-script",
+]);
 
 function assert(condition, message, errors) {
   if (!condition) errors.push(message);
@@ -67,10 +71,24 @@ export async function validateManifests() {
       errors,
     );
     assert(
-      isNonEmptyString(game.version),
-      `${label} version is required.`,
+      versionSourceFormats.has(game.versionSource?.format),
+      `${label} versionSource format is invalid.`,
       errors,
     );
+    if (isNonEmptyString(game.versionSource?.url)) {
+      try {
+        const parsed = new URL(game.versionSource.url);
+        assert(
+          parsed.protocol === "https:",
+          `${label} versionSource URL must use HTTPS.`,
+          errors,
+        );
+      } catch {
+        errors.push(`${label} versionSource URL is invalid.`);
+      }
+    } else {
+      errors.push(`${label} versionSource URL is required.`);
+    }
     assert(statuses.has(game.status), `${label} status is invalid.`, errors);
     assert(Array.isArray(game.tags), `${label} tags must be an array.`, errors);
     assert(

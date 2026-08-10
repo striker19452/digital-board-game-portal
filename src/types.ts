@@ -13,6 +13,12 @@ export type PlayMode =
 export type LocalRuntime = "static" | "vite" | "node";
 export type LaunchMode = "public" | "local";
 export type ModeFilter = "all" | PlayMode;
+export type VersionSourceFormat = "package-json" | "game-version-script";
+
+export interface VersionSource {
+  url: string;
+  format: VersionSourceFormat;
+}
 
 export interface LocalLaunch {
   runtime: LocalRuntime;
@@ -27,7 +33,8 @@ export interface GameManifest {
   originalTitle?: string;
   summary: string;
   cover: string;
-  version: string;
+  version?: string;
+  versionSource: VersionSource;
   status: GameStatus;
   modes: PlayMode[];
   players: {
