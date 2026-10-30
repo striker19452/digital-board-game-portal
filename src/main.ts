@@ -65,9 +65,10 @@ function readVersionCache(): Record<string, string> {
     const value: unknown = JSON.parse(readStorage(VERSION_STORAGE_KEY) ?? "{}");
     if (!value || typeof value !== "object" || Array.isArray(value)) return {};
     return Object.fromEntries(
-      Object.entries(value).filter(
-        (entry): entry is [string, string] => typeof entry[1] === "string",
-      ),
+      games.flatMap((game) => {
+        const cached = (value as Record<string, unknown>)[game.versionSource.url];
+        return typeof cached === "string" ? [[game.id, cached]] : [];
+      }),
     );
   } catch {
     return {};
@@ -465,9 +466,12 @@ async function refreshGameVersions(): Promise<void> {
   );
 
   const successfulVersions = Object.fromEntries(
-    Object.entries(state.versions).filter(
-      (entry): entry is [string, string] => typeof entry[1] === "string",
-    ),
+    games.flatMap((game) => {
+      const version = state.versions[game.id];
+      return typeof version === "string"
+        ? [[game.versionSource.url, version]]
+        : [];
+    }),
   );
   writeStorage(VERSION_STORAGE_KEY, JSON.stringify(successfulVersions));
   renderDynamicContent();

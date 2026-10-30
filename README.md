@@ -83,7 +83,7 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
 | `title` | 门户中显示的中文名称。 |
 | `originalTitle` | 可选的原文名称。 |
 | `summary` | 门户中显示的简介。 |
-| `cover` | 相对于门户 `public/` 目录的封面路径。 |
+| `cover` | 相对于门户 `public/` 目录的封面路径，或游戏仓库中的 HTTPS 图片地址。 |
 | `versionSource` | 游戏版本的只读来源。门户会在浏览器中获取并缓存，不再手工填写版本号。 |
 | `status` | `available` 可游玩、`beta` 测试中、`coming-soon` 即将推出、`maintenance` 维护中。 |
 | `modes` | 游玩方式：`solo`、`local-multiplayer`、`ai` 或 `online`。 |
@@ -101,7 +101,9 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
 | `package-json` | 从 JSON 顶层的 `version` 字段读取版本，适用于以 `package.json` 管理版本的游戏。 |
 | `game-version-script` | 从 `GAME_VERSION = Object.freeze({ number: "…" })` 读取版本，适用于当前怪兽猎人的发布信息脚本。 |
 
-版本来源必须使用 HTTPS，并允许浏览器跨域读取。门户首次读取时显示“版本读取中…”，成功后缓存结果；网络暂时不可用时会沿用上次成功读取的版本，没有缓存时显示“版本未知”。
+版本来源必须使用 HTTPS，并允许浏览器跨域读取。门户首次读取时显示“版本读取中…”，成功后缓存结果；网络暂时不可用时会沿用同一来源上次成功读取的版本，没有缓存时显示“版本未知”。缓存按来源地址区分，切换仓库或分支后会重新读取，不会沿用旧分支的缓存。
+
+怪兽猎人的主图和版本信息目前跟随游戏仓库的 `codex/atlas-interface` 分支：主图为 `assets/atlas/hunting-map.webp`，版本从 `js/version.js` 读取。该分支更新这两个文件后，门户无需重新构建即可读取更新。
 
 `launch.local` 中各字段的意义：
 
@@ -114,7 +116,9 @@ D:\MyProjects\网站门户\src\games\my-new-game.json
 
 ### 第 2 步：增加封面
 
-把一张 16:9 WebP 封面放入：
+如果封面由游戏仓库维护，可将 `cover` 设为该分支图片的 HTTPS 原始文件地址，门户会直接加载它。例如怪兽猎人的 `cover` 和 `versionSource.url` 都指向 `codex/atlas-interface` 分支。
+
+如果使用本地封面，把一张 16:9 WebP 图片放入：
 
 ```text
 D:\MyProjects\网站门户\public\covers\

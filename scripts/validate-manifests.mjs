@@ -119,7 +119,18 @@ export async function validateManifests() {
       `${label} cover is required.`,
       errors,
     );
-    if (isNonEmptyString(game.cover)) {
+    if (isNonEmptyString(game.cover) && /^https?:/i.test(game.cover)) {
+      try {
+        const parsed = new URL(game.cover);
+        assert(
+          parsed.protocol === "https:",
+          `${label} remote cover URL must use HTTPS.`,
+          errors,
+        );
+      } catch {
+        errors.push(`${label} remote cover URL is invalid.`);
+      }
+    } else if (isNonEmptyString(game.cover)) {
       const normalizedCover = game.cover.replace(/^\.?\//, "");
       const coverPath = resolve(publicDirectory, normalizedCover);
       assert(

@@ -3,9 +3,9 @@
   "title": "乌托邦引擎：怪兽猎人",
   "originalTitle": "Utopia Engine: Beast Hunter",
   "summary": "在十四天内探索三片险地、建造防御塔并猎杀恐怖巨兽。一个忠实还原纸笔流程的单人骰子冒险。",
-  "cover": "covers/utopia-engine-beast-hunter.webp",
+  "cover": "https://raw.githubusercontent.com/striker19452/utopia-engine-beast-hunter/codex/atlas-interface/assets/atlas/hunting-map.webp",
   "versionSource": {
-    "url": "https://raw.githubusercontent.com/striker19452/utopia-engine-beast-hunter/main/js/version.js",
+    "url": "https://raw.githubusercontent.com/striker19452/utopia-engine-beast-hunter/codex/atlas-interface/js/version.js",
     "format": "game-version-script"
   },
   "status": "available",
